@@ -125,6 +125,12 @@ Or download them:
 Ssh::create('user', 'host')->download('path/to/host/file', 'path/to/local/file');
 ```
 
+You can also send a file from one remote to another:
+```php
+$remote = Ssh::create('user', 'host');
+Ssh::create('user', 'host')->downloadToRemote('path/to/host/file', $remote, 'path/to/local/file');
+```
+
 Under the hood the process will use `scp`.
 
 ### Modifying the Symfony process

@@ -159,6 +159,18 @@ class Ssh
         return $this->run($downloadCommand);
     }
 
+    public function getDownloadToRemoteCommand(string $sourcePath, Ssh $remote, string $destinationPath): string
+    {
+        return "scp {$this->getExtraScpOptions()} {$this->getTarget()}:$sourcePath {$remote->getTarget()}:$destinationPath";
+    }
+
+    public function downloadToRemote(string $sourcePath, Ssh $remote, string $destinationPath): Process
+    {
+        $downloadToRemoteCommand = $this->getDownloadToRemoteCommand($sourcePath, $remote, $destinationPath);
+
+        return $this->run($downloadToRemoteCommand);
+    }
+
     public function getUploadCommand(string $sourcePath, string $destinationPath): string
     {
         return "scp {$this->getExtraScpOptions()} $sourcePath {$this->getTarget()}:$destinationPath";

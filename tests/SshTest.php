@@ -109,6 +109,15 @@ class SshTest extends TestCase
     }
 
     /** @test */
+    public function it_can_download_a_file_to_a_remote_server()
+    {
+        $remoteSsh = (new Ssh('secondUser', 'example.com'));
+        $command = $this->ssh->getDownloadToRemoteCommand('spatie.be/current/.env', $remoteSsh, '.env');
+
+        $this->assertMatchesSnapshot($command);
+    }
+
+    /** @test */
     public function it_can_upload_a_file()
     {
         $command = $this->ssh->getUploadCommand('.env', 'spatie.be/current/.env');
